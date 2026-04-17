@@ -46,3 +46,8 @@ I M F L D O E G
 
 --- SOLVING ---
 Found 'CAT' starting at row 1, col 2
+
+
+**Contributors:**
+Maryann Leshaj
+Waleska Lopez
