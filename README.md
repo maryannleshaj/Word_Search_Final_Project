@@ -24,6 +24,7 @@ This is a C++ command-line tool developed for **EECE 2140**. It generates random
 *EXAMPLE USAGE*
 
 **Input**
+'''
 g++ main.cpp -o main_program
 ./main_program
 
