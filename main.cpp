@@ -103,3 +103,24 @@ public:
 };
 
 
+
+
+int main() {
+    int s;
+    cout << "Welcome to the Word Search Final Project!\n";
+    cout << "Enter grid size (6 to 12): ";
+    while (!(cin >> s) || s < 6 || s > 12) { //makes sure the user picks a good grid size
+        cout << "Error: Size must be 6-12. Try again: ";
+        cin.clear(); cin.ignore(1000, '\n');
+    }
+
+
+    WordSearch ws(s); //creates the wordsearch object
+    ws.handleInputs(); //gets words from user
+    ws.fillRest(); //fills blanks with random letters
+    ws.display(); //shows the final grid
+    ws.solve(); //shows where the words were hidden
+
+
+    return 0;
+}
