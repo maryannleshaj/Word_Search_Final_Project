@@ -59,44 +59,23 @@ public:
         maxWords = s / 1.5 + 1; // calculation: max words is roughly size/1.5 
     }
 
-    void handleInputs() {
-        int count;
-        cout << "For a " << size << "x" << size << " grid, you can add up to " << maxWords << " words.\n";
-        cout << "How many words would you like to add? ";
-        
-        while (!(cin >> count) || count < 1 || count > maxWords) { //error checking for the number of words
-            cout << "Invalid. Please enter a number between 1 and " << maxWords << ": ";
-            cin.clear();
-            cin.ignore(1000, '\n');
-        }
-
-        for (int i = 0; i < count; ++i) { //loop to get each word from the user
-            string w;
-            bool successfullyPlaced = false;
-            
-            while (!successfullyPlaced) {
-                cout << "Enter word " << i + 1 << ": ";
-                cin >> w;
-                w = toUpper(w); //makes sure all words are uppercase for the grid
-
-                // Edge Case: Length check and Alpha check
-                bool valid = (w.length() >= 2 && w.length() <= size);
-                for(char c : w) if(!isalpha(c)) valid = false; //checks if the word has only letters
-
-                if (!valid) {
-                    cout << "Invalid word! Must be letters only and fit the grid size (" << size << ").\n";
-                    continue;
-                }
-
-                if (placeWord(w)) { //tries to put the word in the grid
-                    wordList.push_back(w); //saves the word to the list for solving later
-                    successfullyPlaced = true;
-                } else {
-                    cout << "Could not fit '" << w << "' in the grid. Try a shorter word or different letters: ";
-                }
+       void fillRest() {
+        for (int r = 0; r < size; ++r) { //cycles through rows
+            for (int c = 0; c < size; ++c) { //cycles through columns
+                if (grid[r][c] == '.') grid[r][c] = 'A' + (rand() % 26); //replaces dots with random letters
             }
         }
     }
-    
+
+
+    void display() {
+        cout << "\n--- GENERATED WORD SEARCH ---\n";
+        for (auto& row : grid) {
+            for (char c : row) cout << c << " "; //prints each letter with a space
+            cout << endl;
+        }
+    }
+
 };
+
 
