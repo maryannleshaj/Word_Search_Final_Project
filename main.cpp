@@ -22,6 +22,36 @@ private:
         return s;
     }
 
+    bool canPlace(const string& word, int r, int c, int dir) { //this function checks if the spot on the wordsearch is a good fit for a character
+        for (int i = 0; i < word.length(); ++i) {
+            int nr = r + i * dr[dir]; //this makes the code go to a random direction to place the next word
+            int nc = c + i * dc[dir];
+            if (nr < 0 || nr >= size || nc < 0 || nc >= size) return false; //stops the code from going off the grid
+            if (grid[nr][nc] != '.' && grid[nr][nc] != word[i]) return false; //checks if the spot is already taken by a different letter
+        }
+        return true;
+    }
+
+
+    bool placeWord(const string& word) {
+        int attempts = 0;
+        while (attempts < 150) { // Try 150 times to find a fit
+            int r = rand() % size; //picks a random starting row
+            int c = rand() % size; //picks a random starting column
+            int dir = rand() % 8; //picks one of the 8 directions randomly
+
+
+            if (canPlace(word, r, c, dir)) { //if the spot is good it actually puts the letters in
+                for (int i = 0; i < word.length(); ++i) {
+                    grid[r + i * dr[dir]][c + i * dc[dir]] = word[i];
+                }
+                return true;
+            }
+            attempts++; //keeps track of how many times we tried to fit the word
+        }
+        return false;
+    }
+
 public:
     WordSearch(int s) : size(s) {
         srand(time(0)); //makes the random numbers different every time you run it
