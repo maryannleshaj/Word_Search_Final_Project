@@ -76,6 +76,30 @@ public:
         }
     }
 
+        void solve() {
+        cout << "\n--- SOLVING ---\n";
+        for (const string& word : wordList) { //goes through the list of words we added
+            bool found = false;
+            for (int r = 0; r < size && !found; ++r) { //scans every row
+                for (int c = 0; c < size && !found; ++c) { //scans every column
+                    if (grid[r][c] == word[0]) { //only starts looking if the first letter matches
+                        for (int dir = 0; dir < 8; ++dir) {
+                            int k, currR = r + dr[dir], currC = c + dc[dir];
+                            for (k = 1; k < word.length(); ++k) { //checks the rest of the letters in that direction
+                                if (currR < 0 || currR >= size || currC < 0 || currC >= size || grid[currR][currC] != word[k]) break;
+                                currR += dr[dir]; currC += dc[dir]; //moves to the next spot in the direction
+                            }
+                            if (k == word.length()) { //if we found every letter in the word
+                                cout << "Found '" << word << "' starting at row " << r << ", col " << c << "\n";
+                                found = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 };
 
 
